@@ -1,0 +1,12 @@
+"""Registra a tarefa no /admin/, para o professor conferir os dados."""
+
+from django.contrib import admin
+
+from .models import Task
+
+
+@admin.register(Task)
+class TaskAdmin(admin.ModelAdmin):
+    list_display = ("title", "owner", "done", "created_at")
+    list_filter = ("done",)
+    search_fields = ("title", "owner__username")

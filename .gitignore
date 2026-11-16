@@ -1,0 +1,25 @@
+# Ambiente virtual (cada aluno cria o seu)
+venv/
+.venv/
+env/
+
+# Banco de dados local (criado ao rodar "migrate")
+db.sqlite3
+
+# Cache e arquivos compilados do Python
+__pycache__/
+*.py[cod]
+*.egg-info/
+
+# Variáveis de ambiente (segredos)
+.env
+
+# Configurações de editores
+.vscode/
+.idea/
+
+# Arquivos estáticos gerados pelo "collectstatic" (a nuvem gera de novo)
+staticfiles/
+
+# Documentos de aula (ficam só na sua máquina, não vão para o repositório)
+*.docx

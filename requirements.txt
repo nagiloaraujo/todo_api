@@ -1,0 +1,41 @@
+# Bibliotecas necessárias para a API de Tarefas (TO-DO).
+# Instale tudo de uma vez com:  pip install -r requirements.txt
+
+# O próprio Django (framework web do projeto)
+Django>=5.0,<6.0
+
+# Django REST Framework: transforma os models em uma API (JSON).
+djangorestframework>=3.15,<4.0
+
+# SimpleJWT: gera o token devolvido no login.
+djangorestframework-simplejwt>=5.3,<6.0
+
+# CORS: permite que o front-end (rodando em outra porta, ex: 5173) acesse a API.
+django-cors-headers>=4.3,<5.0
+
+# Documentação automática: Swagger UI em /api/docs/ e ReDoc em /api/redoc/
+drf-spectacular>=0.27,<1.0
+
+# Observação (Python 3.15 no Windows): o PyYAML, que o drf-spectacular usa para
+# escrever a documentação, ainda não tem "wheel" pronto e tentaria compilar a
+# extensão C. Se o comando acima reclamar de Visual C++, rode antes:
+#     $env:PYYAML_FORCE_LIBYAML="0"; pip install pyyaml
+# e depois repita o "pip install -r requirements.txt".
+
+# ----------------------------------------------------------------------
+# Publicação na nuvem (Render). Nada disso atrapalha o uso local.
+# ----------------------------------------------------------------------
+
+# Servidor de aplicação usado no lugar do "runserver" em produção.
+gunicorn>=22.0,<24.0
+
+# Entrega o CSS/imagens (admin, Swagger) direto pelo Django, sem nginx.
+whitenoise>=6.7,<7.0
+
+# Permite definir o banco por uma única variável: DATABASE_URL
+dj-database-url>=2.2,<4.0
+
+# Driver do PostgreSQL. Só é instalado onde existir "wheel" pronta (Python
+# até 3.14, caso do Render); no Python 3.15 local ele é ignorado e o
+# projeto segue usando SQLite.
+psycopg[binary]>=3.2,<4.0; python_version < "3.15"

@@ -1,0 +1,41 @@
+# Blueprint do Render: descreve como publicar esta API.
+# No painel do Render: New + -> Blueprint -> escolha este repositorio.
+# O Render le este arquivo e cria o servico web ja configurado.
+services:
+  - type: web
+    name: todo-api
+    runtime: python
+    plan: free
+    region: ohio
+    # build = montagem: instala as bibliotecas e junta os arquivos estaticos
+    buildCommand: pip install -r requirements.txt && python manage.py collectstatic --noinput
+    # start = o que roda quando o servico liga: aplica as migrations e sobe
+    # o gunicorn (o servidor de aplicacao usado em producao).
+    startCommand: python manage.py migrate --noinput && gunicorn todo.wsgi:application --workers 1 --threads 4 --timeout 60
+    # Endereco usado pelo Render para saber se o servico esta de pe.
+    healthCheckPath: /api/docs/
+    envVars:
+      - key: PYTHON_VERSION
+        value: "3.13.7"
+      # No Render o DEBUG precisa ficar desligado.
+      - key: DJANGO_DEBUG
+        value: "False"
+      # O Render sorteia uma chave secreta longa para o projeto.
+      - key: DJANGO_SECRET_KEY
+        generateValue: true
+      # OBS: ALLOWED_HOSTS e CSRF_TRUSTED_ORIGINS se configuram sozinhos
+      # porque o Render informa o proprio endereco (RENDER_EXTERNAL_URL).
+      #
+      # Banco de dados: o Render cria o Postgres abaixo e entrega o
+      # endereco pronto nesta variavel. Sem ela, o projeto usaria SQLite.
+      - key: DATABASE_URL
+        fromDatabase:
+          name: todo-db
+          property: connectionString
+
+databases:
+  - name: todo-db
+    plan: free
+    databaseName: todo_api
+    user: todo
+    region: ohio
