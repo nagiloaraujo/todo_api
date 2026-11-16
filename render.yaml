@@ -26,16 +26,11 @@ services:
       # OBS: ALLOWED_HOSTS e CSRF_TRUSTED_ORIGINS se configuram sozinhos
       # porque o Render informa o proprio endereco (RENDER_EXTERNAL_URL).
       #
-      # Banco de dados: o Render cria o Postgres abaixo e entrega o
-      # endereco pronto nesta variavel. Sem ela, o projeto usaria SQLite.
-      - key: DATABASE_URL
-        fromDatabase:
-          name: todo-db
-          property: connectionString
-
-databases:
-  - name: todo-db
-    plan: free
-    databaseName: todo_api
-    user: todo
-    region: ohio
+      # BANCO: nao definimos DATABASE_URL, entao o projeto usa SQLite e grava
+      # o arquivo db.sqlite3 dentro do proprio servico. E o caminho mais
+      # simples e gratuito (o plano free do Render permite apenas um
+      # PostgreSQL por conta, e ele ja esta em uso pelo projeto Brasa Nobre).
+      # ATENCAO: no plano free o disco e temporario, entao cada novo deploy
+      # comeca com o banco zerado - as contas e tarefas criadas antes sao
+      # perdidas. Para guardar os dados de forma definitiva, basta definir a
+      # variavel DATABASE_URL apontando para um PostgreSQL.
