@@ -19,6 +19,33 @@ Não é preciso instalar nem configurar banco de dados.
 
 ---
 
+## API publicada na nuvem (demo)
+
+A mesma API também está publicada, de graça, no **Render**. É o código deste
+repositório rodando na internet — só muda o endereço.
+
+| Ambiente | Endereço base |
+|---|---|
+| Local (seu computador) | `http://127.0.0.1:8000` |
+| Nuvem (Render) | `https://todo-api-0hhb.onrender.com` |
+
+Documentação interativa online:
+
+- **Swagger UI:** https://todo-api-0hhb.onrender.com/api/docs/
+- **ReDoc:** https://todo-api-0hhb.onrender.com/api/redoc/
+- **Schema OpenAPI:** https://todo-api-0hhb.onrender.com/api/schema/
+- **Código-fonte (GitHub):** https://github.com/nagiloaraujo/todo_api
+
+> **Avisos do plano gratuito:**
+> - O serviço "dorme" depois de cerca de 15 minutos sem uso. A primeira chamada
+>   pode demorar 30-50 segundos para "acordar" — é normal, basta tentar de novo.
+> - O banco é o SQLite e, na nuvem, é **temporário**: cada novo deploy recomeça
+>   com o banco zerado. Serve para demonstração, não para guardar dados reais.
+> - Para testar online, use o mesmo roteiro do Swagger trocando apenas o
+>   endereço local pelo endereço da nuvem.
+
+---
+
 ## 1. Estrutura de pastas
 
 ```
