@@ -51,10 +51,22 @@ class LoginSerializer(serializers.Serializer):
 
 
 class TokenResponseSerializer(serializers.Serializer):
-    """O que a API devolve depois do cadastro ou do login."""
+    """O que a API devolve depois do cadastro ou do login.
 
-    token = serializers.CharField(read_only=True)
+    O "user" vem primeiro e traz o username em texto puro. O "token" é a
+    chave de acesso: aquela string longa que começa com "eyJ" (não é o
+    username). Ela deve ser guardada e enviada nas próximas chamadas, no
+    cabeçalho: Authorization: Bearer <token>
+    """
+
     user = UserSerializer(read_only=True)
+    token = serializers.CharField(
+        read_only=True,
+        help_text=(
+            "Chave de acesso (não é o username). Envie nas outras chamadas: "
+            "Authorization: Bearer <token>"
+        ),
+    )
 
 
 class TaskSerializer(serializers.ModelSerializer):

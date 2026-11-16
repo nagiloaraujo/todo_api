@@ -56,7 +56,7 @@ class RegisterView(APIView):
         token = AccessToken.for_user(usuario)
 
         return Response(
-            {"token": str(token), "user": UserSerializer(usuario).data},
+            {"user": UserSerializer(usuario).data, "token": str(token)},
             status=status.HTTP_201_CREATED,
         )
 
@@ -91,7 +91,7 @@ class LoginView(APIView):
 
         token = AccessToken.for_user(usuario)
 
-        return Response({"token": str(token), "user": UserSerializer(usuario).data})
+        return Response({"user": UserSerializer(usuario).data, "token": str(token)})
 
 
 # ======================================================================
